@@ -54,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\accelerate.cs" />
+     <Compile Include="Assets\DebugGUI\Attributes\DebugGUIGraphAttribute.cs" />
+     <Compile Include="Assets\DebugGUI\Attributes\DebugGUIPrintAttribute.cs" />
+     <Compile Include="Assets\DebugGUI\DebugGUI.cs" />
+     <Compile Include="Assets\DebugGUI\Examples\DebugGUIExamples.cs" />
      <Compile Include="Assets\effects.cs" />
      <Compile Include="Assets\GM.cs" />
      <Compile Include="Assets\KinectDemos\AvatarsDemo\Scripts\CameraPitchCorrector.cs" />
@@ -61,8 +65,10 @@
      <Compile Include="Assets\moveCam.cs" />
      <Compile Include="Assets\moveOrb.cs" />
      <Compile Include="Assets\MoveScene.cs" />
+     <Compile Include="Assets\rotateAvatar.cs" />
      <Compile Include="Assets\Script\LineGraphManager.cs" />
      <Compile Include="Assets\stats.cs" />
+     <None Include="Assets\DebugGUI\README.txt" />
      <None Include="Assets\LegHealth.txt" />
      <None Include="Assets\_Readme\License.txt" />
      <None Include="Assets\HandHealth.txt" />
