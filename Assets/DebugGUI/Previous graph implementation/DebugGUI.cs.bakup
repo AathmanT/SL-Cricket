@@ -16,7 +16,6 @@ public class DebugGUI : MonoBehaviour
             if (_instance == null)
             {
                 _instance = FindObjectOfType<DebugGUI>();
-
                 if (_instance == null && Application.isPlaying)
                 {
                     _instance = new GameObject("DebugGUI").AddComponent<DebugGUI>();
@@ -26,8 +25,12 @@ public class DebugGUI : MonoBehaviour
         }
     }
 
-    const int graphWidth = 600;
-    const int graphHeight = 100;
+    // const int graphWidth = 300;
+    const int graphWidth = 500;
+
+    // const int graphHeight = 100;
+    const int graphHeight = 300;
+
     const float temporaryLogLifetime = 5f;
 
     // Show logs and graphs in build?

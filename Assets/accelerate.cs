@@ -17,6 +17,17 @@ public class accelerate : MonoBehaviour {
 		
 			// foreach (Transform child in transform)
             //  print("Foreach loop: " + child);
+		// 	List<Dictionary<string,object>> data = CSV_Reader.Read ("chathu_trial_Session10_Shimmer_5F42_Calibrated_PC");
+        // for(var i=0; i < data.Count; i++) {
+        //     print ("X_acc " + data[i]["Shimmer_5F42_Accel_WR_X_CAL"] + " " +
+        //            "Y_acc " + data[i]["Shimmer_5F42_Accel_WR_X_CAL"] + " " +
+        //            "Z_acc " + data[i]["Shimmer_5F42_Accel_WR_X_CAL"]);
+
+		// }
+	// 	 foreach (string key in data[0].Keys)
+    // {
+    //     print(key);
+    // }
 			
 	}
 	
@@ -36,24 +47,24 @@ public class accelerate : MonoBehaviour {
 		// }else{
 		// 	n++;
 		// }
-		print(n);
-		// if (i%30==0 && gameObject.name=="joint_HipRT"){
-		// // if (n<14 && i%10==0 && gameObject.name=="joint_HipRT"){
-		// 	transform.Rotate(array1[Random.Range(0, 13)]*1,0, zAngle: 0);
-		// 	transform.Rotate(0,array1[Random.Range(0, 13)]*1, zAngle: 0);
-		// 	transform.Rotate(0,0,array1[Random.Range(0, 13)]*1);
+		// print(n);
+		if (i%30==0 && gameObject.name=="joint_HipRT"){
+		// if (n<14 && i%10==0 && gameObject.name=="joint_HipRT"){
+			transform.Rotate(array1[Random.Range(0, 13)]*1,0, zAngle: 0);
+			transform.Rotate(0,array1[Random.Range(0, 13)]*1, zAngle: 0);
+			transform.Rotate(0,0,array1[Random.Range(0, 13)]*1);
 
-		// 	n++;
-		// // }else if(n<28 && n>=13 && i%10==0 && gameObject.name=="joint_HipLT"){
-		// }else if(i%30==0 && gameObject.name=="joint_HipLT"){
+			n++;
+		// }else if(n<28 && n>=13 && i%10==0 && gameObject.name=="joint_HipLT"){
+		}else if(i%30==0 && gameObject.name=="joint_HipLT"){
 			
-		// 	// transform.Rotate(array1[n]*3,0, zAngle: 0);
-		// 	transform.Rotate(array1[Random.Range(0, 13)]*1,0, zAngle: 0);
-		// 	transform.Rotate(0,array1[Random.Range(0, 13)]*1, zAngle: 0);
-		// 	transform.Rotate(0,0,array1[Random.Range(0, 13)]*1);
+			// transform.Rotate(array1[n]*3,0, zAngle: 0);
+			transform.Rotate(array1[Random.Range(0, 13)]*1,0, zAngle: 0);
+			transform.Rotate(0,array1[Random.Range(0, 13)]*1, zAngle: 0);
+			transform.Rotate(0,0,array1[Random.Range(0, 13)]*1);
 
-		// 	n++;
-		if(i%30==0 && gameObject.name=="joint_KneeRT"){
+			n++;
+		}else if(i%30==0 && gameObject.name=="joint_KneeRT"){
 			
 			// transform.Rotate(array1[n]*3,0, zAngle: 0);
 			transform.Rotate(array1[Random.Range(0, 13)]*1,0, zAngle: 0);

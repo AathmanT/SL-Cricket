@@ -28,12 +28,13 @@ public class DebugGUIExamples : MonoBehaviour
      * 
      * * * */
 
+     List<Dictionary<string,object>> data;
     // Disable Field Unused warning
 #pragma warning disable 0414
 
     // Works with regular fields
-    [DebugGUIGraph(min: -1, max: 1, r: 0, g: 1, b: 0, autoScale: true)]
-    float MomentumX;
+    // [DebugGUIGraph(min: -1, max: 1, r: 0, g: 1, b: 0, autoScale: true)]
+    // float MomentumX;
 
     // As well as properties
     // [DebugGUIGraph(min: -1, max: 1, r: 0, g: 1, b: 1, autoScale: true)]
@@ -49,8 +50,8 @@ public class DebugGUIExamples : MonoBehaviour
 #endif
 
     // User inputs, print and graph in one!
-    [DebugGUIGraph(group: 1, r: 1, g: 0.3f, b: 0.3f)]
-    float MomentumY;
+    // [DebugGUIGraph(group: 1, r: 1, g: 0.3f, b: 0.3f)]
+    // float MomentumY;
     // [DebugGUIPrint, DebugGUIGraph(group: 1, r: 0, g: 1, b: 0)]
     // float mouseY;
 
@@ -60,23 +61,52 @@ public class DebugGUIExamples : MonoBehaviour
         // DebugGUI.Log("Hello! I will disappear in five seconds!");
 
         // Set up graph properties using our graph keys
-        DebugGUI.SetGraphProperties("MomentumZ", "MomentumZ", 0, 200, 2, new Color(0, 1, 1), false);
+        DebugGUI.SetGraphProperties("MomentumX", "MomentumX", 0, 200, 0, new Color(1, 1, 1), true);
+
+        DebugGUI.SetGraphProperties("MomentumY", "MomentumY", 0, 200, 1, new Color(0, 1, 0), true);
+
+        DebugGUI.SetGraphProperties("MomentumZ", "MomentumZ", 0, 200, 2, new Color(0, 1, 1), true);
         // DebugGUI.SetGraphProperties("frameRate", "FPS", 0, 200, 2, new Color(1, 0.5f, 1), false);
         DebugGUI.SetGraphProperties("Momentum", "Momentum", -1, 1, 3, new Color(1, 1, 0), true);
+        
+        data = CSV_Reader.Read ("chathu_trial_Session10_Shimmer_5F42_Calibrated_PC");
+        // for(var i=0; i < data.Count; i++) {
+        //     print ("X_acc " + data[i]["Shimmer_5F42_Accel_WR_X_CAL"] + " " +
+        //            "Y_acc " + data[i]["Shimmer_5F42_Accel_WR_X_CAL"] + " " +
+        //            "Z_acc " + data[i]["Shimmer_5F42_Accel_WR_X_CAL"]);
+
+		// }
     }
+    
     int n = 0 ;
+    int i = 0 ;
+    int mass = 80;
     void Update()
     {
         // Update the fields our attributes are graphing
         // SinField = Mathf.Sin(Time.time * 6);
-
+        float frequency = 1 / Time.deltaTime;
+        float accelerationX = (float) data[i]["Shimmer_5F42_Accel_WR_X_CAL"];
+        float accelerationY = (float) data[i]["Shimmer_5F42_Accel_WR_Y_CAL"];
+        float accelerationZ = (float) data[i]["Shimmer_5F42_Accel_WR_Z_CAL"];
+        float acceleration = Mathf.Sqrt(Mathf.Pow(accelerationX, 2.0f)+Mathf.Pow(accelerationY, 2.0f)+Mathf.Pow(accelerationZ, 2.0f));
         if (n%3000==0){
-            MomentumX = Random.Range(0.0f, 300.0f);
-            MomentumY = Random.Range(0.0f, 300.0f);
-            
-            DebugGUI.Graph("MomentumZ",Random.Range(0.0f, 300.0f));
+            // MomentumY = Random.Range(0.0f, 300.0f);
 
-            DebugGUI.Graph("Momentum", Random.Range(0.0f, 300.0f));
+            // MomentumX = mass*accelerationX*frequency;
+            // MomentumY = mass*accelerationY*frequency;
+            DebugGUI.Graph("MomentumX",mass*accelerationX*frequency);
+
+            DebugGUI.Graph("MomentumY",mass*accelerationY*frequency);
+
+            DebugGUI.Graph("MomentumZ",mass*accelerationZ*frequency);
+
+            DebugGUI.Graph("Momentum", mass*acceleration*frequency);
+
+            if(i<data.Count){
+                i++;
+            }
+            
         }
 
         // mouseX = Input.mousePosition.x / Screen.width;

@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\accelerate.cs" />
+     <Compile Include="Assets\CSV_Reader.cs" />
      <Compile Include="Assets\DebugGUI\Attributes\DebugGUIGraphAttribute.cs" />
      <Compile Include="Assets\DebugGUI\Attributes\DebugGUIPrintAttribute.cs" />
      <Compile Include="Assets\DebugGUI\DebugGUI.cs" />
