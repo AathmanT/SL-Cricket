@@ -90,7 +90,7 @@ public class DebugGUIExamples : MonoBehaviour
         float accelerationY = (float) data[i]["Shimmer_5F42_Accel_WR_Y_CAL"];
         float accelerationZ = (float) data[i]["Shimmer_5F42_Accel_WR_Z_CAL"];
         float acceleration = Mathf.Sqrt(Mathf.Pow(accelerationX, 2.0f)+Mathf.Pow(accelerationY, 2.0f)+Mathf.Pow(accelerationZ, 2.0f));
-        if (n%3000==0){
+        if (n%25==0){
             // MomentumY = Random.Range(0.0f, 300.0f);
 
             // MomentumX = mass*accelerationX*frequency;
@@ -130,7 +130,7 @@ public class DebugGUIExamples : MonoBehaviour
         //     DebugGUI.Graph("smoothFrameRate", 1 / Time.smoothDeltaTime);
         // if (Time.deltaTime != 0)
         //     DebugGUI.Graph("frameRate", 1 / Time.deltaTime);
-        
+        n++;
 
     }
 

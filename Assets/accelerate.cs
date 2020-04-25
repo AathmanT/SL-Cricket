@@ -3,25 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class accelerate : MonoBehaviour {
-	// 0.907241173,0.962298025,0.955116697,0.950329144,0.931178935,0.935966487,0.933572711,0.897666068
-// 0.976660682
-// 0.950329144
-// 0.962298025
-// 0.940754039
-// 0.959904249
-// 0.95272292
-// 0.933572711
 
 	// Use this for initialization
+	     List<Dictionary<string,object>> data;
+
 	void Start () {
 		
 			// foreach (Transform child in transform)
             //  print("Foreach loop: " + child);
-		// 	List<Dictionary<string,object>> data = CSV_Reader.Read ("chathu_trial_Session10_Shimmer_5F42_Calibrated_PC");
+			data = CSV_Reader.Read ("Joint angles");
         // for(var i=0; i < data.Count; i++) {
-        //     print ("X_acc " + data[i]["Shimmer_5F42_Accel_WR_X_CAL"] + " " +
-        //            "Y_acc " + data[i]["Shimmer_5F42_Accel_WR_X_CAL"] + " " +
-        //            "Z_acc " + data[i]["Shimmer_5F42_Accel_WR_X_CAL"]);
+        //     print ("X_angle " + data[i]["Left_Hip_FlexExt"] + " " +
+        //            "Y_angle " + data[i]["Left_Hip_AbdAdd"] + " " +
+        //            "Z_angle " + data[i]["Left_Hip_IntExt"]);
 
 		// }
 	// 	 foreach (string key in data[0].Keys)
@@ -33,7 +27,21 @@ public class accelerate : MonoBehaviour {
 	
 	int n = 0;
 	int i = 0;
-    int[] array1 = new int[] { 1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 1,1,1,1,1,1,1};
+    // int[] array1 = new int[] { 1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 1,1,1,1,1,1,1};
+	
+	string Hip_RT_X = "Right_Hip_FlexExt";
+	string Hip_RT_Y = "Right_Hip_AbdAdd";
+	string Hip_RT_Z = "Right_Hip_IntExt";
+	string Hip_LT_X = "Left_Hip_FlexExt";
+	string Hip_LT_Y = "Left_Hip_AbdAdd";
+	string Hip_LT_Z = "Left_Hip_IntExt";
+	string Knee_RT_X = "Right_KneeFlexExt";
+	string Knee_RT_Y = "Right_KneeAbdAdd";
+	string Knee_RT_Z = "Right_KneeIntExt";
+	string Knee_LT_X = "Left_KneeFlexExt";
+	string Knee_LT_Y = "Left_KneeAbdAdd";
+	string Knee_LT_Z = "Left_KneeFlexExt";
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -48,41 +56,77 @@ public class accelerate : MonoBehaviour {
 		// 	n++;
 		// }
 		// print(n);
-		if (i%30==0 && gameObject.name=="joint_HipRT"){
-		// if (n<14 && i%10==0 && gameObject.name=="joint_HipRT"){
-			transform.Rotate(array1[Random.Range(0, 13)]*1,0, zAngle: 0);
-			transform.Rotate(0,array1[Random.Range(0, 13)]*1, zAngle: 0);
-			transform.Rotate(0,0,array1[Random.Range(0, 13)]*1);
 
-			n++;
-		// }else if(n<28 && n>=13 && i%10==0 && gameObject.name=="joint_HipLT"){
-		}else if(i%30==0 && gameObject.name=="joint_HipLT"){
-			
-			// transform.Rotate(array1[n]*3,0, zAngle: 0);
-			transform.Rotate(array1[Random.Range(0, 13)]*1,0, zAngle: 0);
-			transform.Rotate(0,array1[Random.Range(0, 13)]*1, zAngle: 0);
-			transform.Rotate(0,0,array1[Random.Range(0, 13)]*1);
+		if (n%25==0){
 
-			n++;
-		}else if(i%30==0 && gameObject.name=="joint_KneeRT"){
-			
-			// transform.Rotate(array1[n]*3,0, zAngle: 0);
-			transform.Rotate(array1[Random.Range(0, 13)]*1,0, zAngle: 0);
-			transform.Rotate(0,array1[Random.Range(0, 13)]*1, zAngle: 0);
-			transform.Rotate(0,0,array1[Random.Range(0, 13)]*1);
+			if(i==0){
+				if (gameObject.name=="joint_HipRT"){
+			// if (i%30==0 && i%10==0 && gameObject.name=="joint_HipRT"){
+				transform.Rotate((float)data[i][Hip_RT_X]*1,0, zAngle: 0);
+				transform.Rotate(0,(float)data[i][Hip_RT_Y]*1, zAngle: 0);
+				transform.Rotate(0,0,(float)data[i][Hip_RT_Z]*1);
 
-			n++;
-		}else if(i%30==0 && gameObject.name=="joint_KneeLT"){
-			
-			// transform.Rotate(array1[n]*3,0, zAngle: 0);
-			transform.Rotate(array1[Random.Range(0, 13)]*1,0, zAngle: 0);
-			transform.Rotate(0,array1[Random.Range(0, 13)]*1, zAngle: 0);
-			transform.Rotate(0,0,array1[Random.Range(0, 13)]*1);
+				// n++;
+				// }else if(n<28 && n>=13 && i%10==0 && gameObject.name=="joint_HipLT"){
+				}else if(gameObject.name=="joint_HipLT"){
+					
+					// transform.Rotate(array1[n]*3,0, zAngle: 0);
+					transform.Rotate((float)data[i][Hip_LT_X]*1,0, zAngle: 0);
+					transform.Rotate(0,(float)data[i][Hip_LT_Y]*1, zAngle: 0);
+					transform.Rotate(0,0,(float)data[i][Hip_LT_Z]*1);
 
-			n++;
-		}
+				}else if(gameObject.name=="joint_KneeRT"){
+					
+					// transform.Rotate(array1[n]*3,0, zAngle: 0);
+					transform.Rotate((float)data[i][Knee_RT_X]*1,0, zAngle: 0);
+					transform.Rotate(0,(float)data[i][Knee_RT_Y]*1, zAngle: 0);
+					transform.Rotate(0,0,(float)data[i][Knee_RT_Z]*1);
 		
-		i++;
+				}else if(gameObject.name=="joint_KneeLT"){
+					
+					// transform.Rotate(array1[n]*3,0, zAngle: 0);
+					transform.Rotate((float)data[i][Knee_LT_X]*1,0, zAngle: 0);
+					transform.Rotate(0,(float)data[i][Knee_LT_X]*1, zAngle: 0);
+					transform.Rotate(0,0,(float)data[i][Knee_LT_X]*1);
+				}
+			}else{
+				if (gameObject.name=="joint_HipRT"){
+			// if (i%30==0 && i%10==0 && gameObject.name=="joint_HipRT"){
+				transform.Rotate((float)data[i][Hip_RT_X]-(float)data[i-1][Hip_RT_X]*1,0, zAngle: 0);
+				transform.Rotate(0,(float)data[i][Hip_RT_Y]-(float)data[i-1][Hip_RT_Y]*1, zAngle: 0);
+				transform.Rotate(0,0,(float)data[i][Hip_RT_Z]-(float)data[i-1][Hip_RT_Z]*1);
+
+				// n++;
+				// }else if(n<28 && n>=13 && i%10==0 && gameObject.name=="joint_HipLT"){
+				}else if(gameObject.name=="joint_HipLT"){
+					
+					// transform.Rotate(array1[n]*3,0, zAngle: 0);
+					transform.Rotate((float)data[i][Hip_LT_X]-(float)data[i-1][Hip_LT_X]*1,0, zAngle: 0);
+					transform.Rotate(0,(float)data[i][Hip_LT_Y]-(float)data[i-1][Hip_LT_Y]*1, zAngle: 0);
+					transform.Rotate(0,0,(float)data[i][Hip_LT_Z]-(float)data[i-1][Hip_LT_Z]*1);
+
+				}else if(gameObject.name=="joint_KneeRT"){
+					
+					// transform.Rotate(array1[n]*3,0, zAngle: 0);
+					transform.Rotate((float)data[i][Knee_RT_X]-(float)data[i-1][Knee_RT_X]*1,0, zAngle: 0);
+					transform.Rotate(0,(float)data[i][Knee_RT_Y]-(float)data[i-1][Knee_RT_Y]*1, zAngle: 0);
+					transform.Rotate(0,0,(float)data[i][Knee_RT_Z]-(float)data[i-1][Knee_RT_Z]*1);
 		
+				}else if(gameObject.name=="joint_KneeLT"){
+					
+					// transform.Rotate(array1[n]*3,0, zAngle: 0);
+					transform.Rotate((float)data[i][Knee_LT_X]-(float)data[i-1][Knee_LT_X]*1,0, zAngle: 0);
+					transform.Rotate(0,(float)data[i][Knee_LT_Y]-(float)data[i-1][Knee_LT_Y]*1, zAngle: 0);
+					transform.Rotate(0,0,(float)data[i][Knee_LT_Z]-(float)data[i-1][Knee_LT_Z]*1);
+				}
+			}
+			
+			
+			if(i<data.Count){
+					i++;
+				}
+			}
+			// print(n);
+			n++;
 	}
 }
