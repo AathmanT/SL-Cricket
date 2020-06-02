@@ -1,17 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class accelerate : MonoBehaviour {
 
 	// Use this for initialization
-	     List<Dictionary<string,object>> data;
+	List<Dictionary<string,object>> data;
+
+    public bool paused = false;
+
+	public Text angleText;
+
+	void Awake() {
+		angleText = GameObject.Find("angleText").GetComponent<Text> ();
+		angleText.text = "";
+	}
 
 	void Start () {
 		
-			// foreach (Transform child in transform)
-            //  print("Foreach loop: " + child);
-			data = CSV_Reader.Read ("Joint angles");
+		// foreach (Transform child in transform)
+		//  print("Foreach loop: " + child);
+		data = CSV_Reader.Read ("Joint angles1");
         // for(var i=0; i < data.Count; i++) {
         //     print ("X_angle " + data[i]["Left_Hip_FlexExt"] + " " +
         //            "Y_angle " + data[i]["Left_Hip_AbdAdd"] + " " +
@@ -57,38 +67,40 @@ public class accelerate : MonoBehaviour {
 		// }
 		// print(n);
 
+		if (!paused && i<data.Count) {
+
 		if (n%25==0){
 
 			if(i==0){
-				if (gameObject.name=="joint_HipRT"){
-			// if (i%30==0 && i%10==0 && gameObject.name=="joint_HipRT"){
-				transform.Rotate((float)data[i][Hip_RT_X]*1,0, zAngle: 0);
-				transform.Rotate(0,(float)data[i][Hip_RT_Y]*1, zAngle: 0);
-				transform.Rotate(0,0,(float)data[i][Hip_RT_Z]*1);
+			// 	if (gameObject.name=="joint_HipRT"){
+			// // if (i%30==0 && i%10==0 && gameObject.name=="joint_HipRT"){
+			// 	transform.Rotate((float)data[i][Hip_RT_X]*1,0, zAngle: 0);
+			// 	transform.Rotate(0,(float)data[i][Hip_RT_Y]*1, zAngle: 0);
+			// 	transform.Rotate(0,0,(float)data[i][Hip_RT_Z]*1);
 
-				// n++;
-				// }else if(n<28 && n>=13 && i%10==0 && gameObject.name=="joint_HipLT"){
-				}else if(gameObject.name=="joint_HipLT"){
+			// 	// n++;
+			// 	// }else if(n<28 && n>=13 && i%10==0 && gameObject.name=="joint_HipLT"){
+			// 	}else if(gameObject.name=="joint_HipLT"){
 					
-					// transform.Rotate(array1[n]*3,0, zAngle: 0);
-					transform.Rotate((float)data[i][Hip_LT_X]*1,0, zAngle: 0);
-					transform.Rotate(0,(float)data[i][Hip_LT_Y]*1, zAngle: 0);
-					transform.Rotate(0,0,(float)data[i][Hip_LT_Z]*1);
+			// 		// transform.Rotate(array1[n]*3,0, zAngle: 0);
+			// 		transform.Rotate((float)data[i][Hip_LT_X]*1,0, zAngle: 0);
+			// 		transform.Rotate(0,(float)data[i][Hip_LT_Y]*1, zAngle: 0);
+			// 		transform.Rotate(0,0,(float)data[i][Hip_LT_Z]*1);
 
-				}else if(gameObject.name=="joint_KneeRT"){
+			// 	}else if(gameObject.name=="joint_KneeRT"){
 					
-					// transform.Rotate(array1[n]*3,0, zAngle: 0);
-					transform.Rotate((float)data[i][Knee_RT_X]*1,0, zAngle: 0);
-					transform.Rotate(0,(float)data[i][Knee_RT_Y]*1, zAngle: 0);
-					transform.Rotate(0,0,(float)data[i][Knee_RT_Z]*1);
+			// 		// transform.Rotate(array1[n]*3,0, zAngle: 0);
+			// 		transform.Rotate((float)data[i][Knee_RT_X]*1,0, zAngle: 0);
+			// 		transform.Rotate(0,(float)data[i][Knee_RT_Y]*1, zAngle: 0);
+			// 		transform.Rotate(0,0,(float)data[i][Knee_RT_Z]*1);
 		
-				}else if(gameObject.name=="joint_KneeLT"){
+			// 	}else if(gameObject.name=="joint_KneeLT"){
 					
-					// transform.Rotate(array1[n]*3,0, zAngle: 0);
-					transform.Rotate((float)data[i][Knee_LT_X]*1,0, zAngle: 0);
-					transform.Rotate(0,(float)data[i][Knee_LT_X]*1, zAngle: 0);
-					transform.Rotate(0,0,(float)data[i][Knee_LT_X]*1);
-				}
+			// 		// transform.Rotate(array1[n]*3,0, zAngle: 0);
+			// 		transform.Rotate((float)data[i][Knee_LT_X]*1,0, zAngle: 0);
+			// 		transform.Rotate(0,(float)data[i][Knee_LT_X]*1, zAngle: 0);
+			// 		transform.Rotate(0,0,(float)data[i][Knee_LT_X]*1);
+			// 	}
 			}else{
 				if (gameObject.name=="joint_HipRT"){
 			// if (i%30==0 && i%10==0 && gameObject.name=="joint_HipRT"){
@@ -122,11 +134,47 @@ public class accelerate : MonoBehaviour {
 			}
 			
 			
-			if(i<data.Count){
+				if(i<data.Count){
 					i++;
 				}
-			}
-			// print(n);
-			n++;
+		}
+		// print(n);
+		n++;
+
+		}
+
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			this.Pause();
+		}
 	}
+
+	void Pause() {
+		paused = !paused;
+	}
+
+	void OnMouseOver() {
+		if (paused) {
+			angleText.text = data[i][Hip_LT_X] + ", " + data[i][Hip_LT_Y] + ", " + data[i][Hip_LT_Z];
+			if (gameObject.name=="joint_HipRT"){
+				// float Angle = Quaternion.Angle(Quaternion.Euler(new Vector3(0,0,0)),transform.rotation);
+				angleText.text = data[i][Hip_RT_X] + ", " + data[i][Hip_RT_Y] + ", " + data[i][Hip_RT_Z];
+			}
+			else if(gameObject.name=="joint_HipLT"){
+				angleText.text = data[i][Hip_LT_X] + ", " + data[i][Hip_LT_Y] + ", " + data[i][Hip_LT_Z];
+			}
+			else if(gameObject.name=="joint_KneeRT"){
+				angleText.text = data[i][Knee_RT_X] + ", " + data[i][Knee_RT_Y] + ", " + data[i][Knee_RT_Z];
+			}
+			else if(gameObject.name=="joint_KneeLT"){
+				angleText.text = data[i][Knee_LT_X] + ", " + data[i][Knee_LT_Y] + ", " + data[i][Knee_LT_Z];
+			}
+		}
+		
+	}
+
+	void OnMouseExit() {
+		angleText.text = "";
+	}
+
+	
 }
